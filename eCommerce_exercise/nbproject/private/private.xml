@@ -4,15 +4,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/osboxes/Desktop/eCommerce_exercise/web/view/category.jsp</file>
-            <file>file:/home/osboxes/Desktop/eCommerce_exercise/src/java/web/action/Action.java</file>
-            <file>file:/home/osboxes/Desktop/eCommerce_exercise/src/java/model/CategoryModel.java</file>
-            <file>file:/home/osboxes/Desktop/eCommerce_exercise/src/java/web/ControllerServlet.java</file>
-            <file>file:/home/osboxes/Desktop/eCommerce_exercise/src/java/web/action/categoryAction.java</file>
-            <file>file:/home/osboxes/Desktop/eCommerce_exercise/web/view/init.jsp</file>
-            <file>file:/home/osboxes/Desktop/eCommerce_exercise/src/java/web/action/newOrderAction.java</file>
-            <file>file:/home/osboxes/Desktop/eCommerce_exercise/src/java/model/OrderModel.java</file>
-            <file>file:/home/osboxes/Desktop/eCommerce_exercise/src/java/web/action/initAction.java</file>
+            <file>file:/home/osboxes/Desktop/matt_wmad/eCommerce_exercise/src/java/web/action/categoryAction.java</file>
+            <file>file:/home/osboxes/Desktop/matt_wmad/eCommerce_exercise/src/java/web/action/neworderAction.java</file>
+            <file>file:/home/osboxes/Desktop/matt_wmad/eCommerce_exercise/src/java/web/ControllerServlet.java</file>
+            <file>file:/home/osboxes/Desktop/matt_wmad/eCommerce_exercise/src/java/cart/ShoppingCartItem.java</file>
+            <file>file:/home/osboxes/Desktop/matt_wmad/eCommerce_exercise/src/java/model/ProductModel.java</file>
+            <file>file:/home/osboxes/Desktop/matt_wmad/eCommerce_exercise/src/java/web/action/initAction.java</file>
+            <file>file:/home/osboxes/Desktop/matt_wmad/eCommerce_exercise/src/java/cart/ShoppingCart.java</file>
+            <file>file:/home/osboxes/Desktop/matt_wmad/eCommerce_exercise/web/view/category.jsp</file>
         </group>
     </open-files>
 </project-private>

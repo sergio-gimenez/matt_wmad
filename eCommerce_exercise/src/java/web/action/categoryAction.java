@@ -25,7 +25,6 @@ public class categoryAction extends Action {
 
         req.setAttribute("products", productModel.retrieveProductsByCategory(category));                
         
-        ViewManager.nextView(req, resp, "/view/category.jsp");
-        
+        ViewManager.nextView(req, resp, "/view/category.jsp");        
     }
 }

@@ -1,6 +1,7 @@
 <%@ page import="entity.Category" %>
 <%@ page import="entity.Product" %>
 <%@ page import="java.util.List" %>
+<%@ page import="cart.ShoppingCart" %>
 
 <head>
     <meta http-equiv="Expires" CONTENT="0">
@@ -48,12 +49,32 @@
         </td>
 
         <td width="14%" valign="center" align="middle"> 
-             </td>
+
+            <a href="neworder.do?productid=<%=product.getId()%>">
+                Add to cart
+            </a>            
+        </td>
 
         <% }%>
 
         </font> </tr>
 
 </table>
+
+<img src="img/cart.gif">
+
+<%
+    ShoppingCart cart;
+    if (request.getAttribute("cart") != null) {
+        cart = (ShoppingCart) request.getAttribute("cart");
+%>
+        <%=cart.getNumberOfItems() + "items"%>
+<%
+    } else {
+%>
+        0 items
+<%
+    }
+%>            
 
 </body>

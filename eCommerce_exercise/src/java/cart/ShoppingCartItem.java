@@ -16,6 +16,35 @@ import entity.Product;
  */
 public class ShoppingCartItem {
 
-    
+    Product product;
+    int quantity;
+
+    public ShoppingCartItem(Product product) {
+        this.product = product;
+    }
+
+    public Product getProduct() {
+        return this.product;
+    }
+
+    public int getQuantity() {
+        return this.quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void incrementQuantity() {
+        this.quantity++;
+    }
+
+    public void decrementQuantity() {
+        this.quantity--;
+    }
+
+    public double getTotal() {
+        return (quantity*product.getPrice());
+    }
 
 }
