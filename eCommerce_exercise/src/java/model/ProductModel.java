@@ -31,7 +31,7 @@ public class ProductModel {
     }
 
     public Product retrieveProductById(Integer id) {
-        Query query = em.createQuery("SELECT p FROM Product p WHERE p.id = :productId").setParameter("productId", id);
+        Query query = em.createQuery("SELECT p FROM Product p WHERE p.id = :productid").setParameter("productid", id);
         return (Product) query.getSingleResult();
     }
 }
