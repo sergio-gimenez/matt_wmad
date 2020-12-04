@@ -65,9 +65,12 @@ public class ShoppingCart {
      */
     public synchronized double getTotal() {
         double totalPrice = 0;
-        for (ShoppingCartItem item : items) {
+        for (ShoppingCartItem item : this.getItems()) {
             totalPrice += item.getTotal();
+            System.out.println(totalPrice);
         }
+        System.out.println(this.getNumberOfItems());
+        System.out.println(totalPrice);
         return totalPrice;
     }
 
