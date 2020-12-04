@@ -24,7 +24,7 @@
         <th> Description </th>
         <th> Price </th>
         <th> Photo </th>
-        <th> Action </th>
+        <th> Quantity </th>
     </tr>
 
 
@@ -52,7 +52,8 @@
             </a>
         </td>
 
-        <td width="14%" valign="center" align="middle">            
+        <td width="14%" valign="center" align="middle">
+            <%=item.getQuantity()%>
         </td>
         <% }%>
         </font> 

@@ -9,11 +9,14 @@ import java.util.*;
  */
 public class ShoppingCart {
 
-    public List<ShoppingCartItem> items;
+    // A hashmap with
+    //      key:   productID
+    //      value: ShoppingCartItem
+    HashMap<Integer, ShoppingCartItem> items;
     int numberOfItems;
 
     public ShoppingCart() {
-        items = new ArrayList<ShoppingCartItem>();
+        items = new HashMap();
         numberOfItems = 0;
     }
 
@@ -23,14 +26,12 @@ public class ShoppingCart {
      * quantity of that item is incremented.
      */
     public synchronized void addItem(Product product) {
-        ShoppingCartItem item = new ShoppingCartItem(product);
-
-        if (!items.contains(item)) {
-            items.add(item);
+        int productId = product.getId();
+        if (items.containsKey(productId)) {
+            items.get(productId).incrementQuantity();
         } else {
-            item.incrementQuantity();
+            items.put(product.getId(), new ShoppingCartItem(product));
         }
-        numberOfItems++;
     }
 
     /**
@@ -38,17 +39,16 @@ public class ShoppingCart {
      * <code>Product</code> to the specified quantity. If '<code>0</code>' is
      * the given quantity, the cart item is removed from the cart.
      */
-    public synchronized void update(Product product, String quantity) {
-        for (ShoppingCartItem item : items) {
-            if (item.getProduct().equals(product)) {
-                numberOfItems += Integer.parseInt(quantity) - item.getQuantity();
-                item.setQuantity(Integer.parseInt(quantity));
-                break;
-            }
-        }
+    public synchronized void update(Product product, Integer quantity) {
+        int productId = product.getId();
+
+        items.get(productId).setQuantity(quantity);
+        numberOfItems += quantity - items.get(productId).getQuantity();
     }
 
     public synchronized List<ShoppingCartItem> getItems() {
+        List<ShoppingCartItem> items = new ArrayList();
+        items.addAll(this.items.values());
         return items;
     }
 
@@ -56,6 +56,11 @@ public class ShoppingCart {
      * Returns the sum quantities for all items maintained in shopping cart list
      */
     public synchronized int getNumberOfItems() {
+        numberOfItems = 0;
+        for (ShoppingCartItem item : getItems()) {
+            numberOfItems += item.getQuantity();
+        }
+
         return numberOfItems;
     }
 
@@ -67,11 +72,8 @@ public class ShoppingCart {
         double totalPrice = 0;
         for (ShoppingCartItem item : this.getItems()) {
             totalPrice += item.getTotal();
-            System.out.println(totalPrice);
         }
-        System.out.println(this.getNumberOfItems());
-        System.out.println(totalPrice);
-        return totalPrice;
+        return  Math.round(totalPrice * 100)/100.0;
     }
 
     public synchronized void clear() {
