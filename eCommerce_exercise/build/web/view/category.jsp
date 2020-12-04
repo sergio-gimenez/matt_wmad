@@ -2,6 +2,7 @@
 <%@ page import="entity.Product" %>
 <%@ page import="java.util.List" %>
 <%@ page import="cart.ShoppingCart" %>
+<%@ page import="cart.ShoppingCartItem" %>
 
 <head>
     <meta http-equiv="Expires" CONTENT="0">
@@ -12,7 +13,23 @@
 </head>
 
 <body>
-
+    <img src="img/cart.gif">
+    <%
+        Category category = (Category) request.getSession().getAttribute("lastCategory");
+    %>
+    
+    <%    
+        ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("cart");
+        if (cart != null) {            
+    %>
+            <%=cart.getNumberOfItems() + "items"%>
+    <%
+        } else {
+    %>
+            0 items
+    <%
+        }
+    %>     
 
     <table width="50%" border="1" bordercolordark="#000000" bordercolorlight="#FFFFFF" cellpadding="3" cellspacing="0">
 
@@ -61,20 +78,8 @@
 
 </table>
 
-<img src="img/cart.gif">
 
-<%
-    ShoppingCart cart;
-    if (request.getAttribute("cart") != null) {
-        cart = (ShoppingCart) request.getAttribute("cart");
-%>
-        <%=cart.getNumberOfItems() + "items"%>
-<%
-    } else {
-%>
-        0 items
-<%
-    }
-%>            
+
+           
 
 </body>

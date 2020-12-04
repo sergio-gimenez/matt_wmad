@@ -10,6 +10,7 @@ import cart.ShoppingCart;
 import entity.Product;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.CategoryModel;
 import model.ProductModel;
 import web.ViewManager;
@@ -23,6 +24,7 @@ public class neworderAction extends Action {
     ProductModel productModel;
     CategoryModel categoryModel;
     ShoppingCart shoppingCart;
+    Product product;
 
     public neworderAction(CategoryModel categoryModel, ProductModel productModel) {
         this.productModel = productModel;
@@ -30,21 +32,31 @@ public class neworderAction extends Action {
     }
 
     public void perform(HttpServletRequest req, HttpServletResponse resp) {
-        String productid = req.getParameter("productid");
-        Product product = productModel.retrieveProductById(Integer.parseInt(productid));
-        
-        ShoppingCart cart;
-        if (req.getSession().getAttribute("cart") == null) {
+        HttpSession current_session = req.getSession();
+
+        // Check if there was already a shopping cart in the session scope.
+        // Otherwise create a new one.
+        ShoppingCart cart = (ShoppingCart) req.getSession().getAttribute("cart");
+        if (cart == null) {
             cart = new ShoppingCart();
-        } else {
-            cart = (ShoppingCart) req.getSession().getAttribute("cart");
         }
-
+        
+        String productid = req.getParameter("productid");
+        product = productModel.retrieveProductById(Integer.parseInt(productid));
         cart.addItem(product);
-        req.getSession().setAttribute("cart", cart);
-
-        System.out.println(cart.getNumberOfItems());
-
+        
+        // Set the cart for the current session scope
+        current_session.setAttribute("cart", cart);
+        
+        // Pass all the necessar attributes to the request in order to propoerly
+        // load the view.
+        req.setAttribute("categoryid", product.getCategory().getId());
+        req.setAttribute("categoryId", product.getCategory().getId());
+        req.setAttribute("category", product.getCategory());
+        req.setAttribute("categories", categoryModel.retrieveAll());
+        req.setAttribute("products", productModel.retrieveProductsByCategory(product.getCategory()));       
+               
         ViewManager.nextView(req, resp, "/view/category.jsp");
     }
+
 }
