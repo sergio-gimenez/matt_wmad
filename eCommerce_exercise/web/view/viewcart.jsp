@@ -53,7 +53,12 @@
         </td>
 
         <td width="14%" valign="center" align="middle">
-            <%=item.getQuantity()%>
+            <form action="updatecart.do">
+                <input type="text" name="updated_quantity" id="updated_quantity" value="<%=item.getQuantity()%>">
+                <input type="hidden" name="updated_product_id" id="updated_product_id" value="<%=item.getProduct().getId()%>">
+                <input type="submit"  value="update">
+            </form>
+                Current quantity: <%=item.getQuantity()%>
         </td>
         <% }%>
         </font> 
@@ -61,7 +66,5 @@
 </table>
 
 Total price: <%=cart.getTotal()%>
-
-
 
 </body>
