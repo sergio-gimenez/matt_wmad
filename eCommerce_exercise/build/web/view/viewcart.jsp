@@ -23,8 +23,7 @@
     <%Category last_category = (Category) request.getSession().getAttribute("last_category");%>
     <a href="category.do?categoryid=<%=last_category.getId()%>">Continue Shopping</a><br>
     
-    
-    
+    <a href="checkout.do?amount=<%=cart.getTotal()%>">Proceed to payment</a><br>
     
     <table width="50%" border="1" bordercolordark="#000000" bordercolorlight="#FFFFFF" cellpadding="3" cellspacing="0">
 
