@@ -17,6 +17,8 @@
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("cart");
     %>     
     
+    <a href="clearcart.do">Clear cart</a>
+    
     <table width="50%" border="1" bordercolordark="#000000" bordercolorlight="#FFFFFF" cellpadding="3" cellspacing="0">
 
         <tr> <font size="2" face="Verdana"> 
