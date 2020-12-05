@@ -34,6 +34,7 @@ public class ControllerServlet extends HttpServlet {
         
         String serv_path = request.getServletPath();
         HttpSession session = request.getSession();
+        String result_ok = "/wallview";
 
         if (serv_path.equals("/login.do")) {
             //...
