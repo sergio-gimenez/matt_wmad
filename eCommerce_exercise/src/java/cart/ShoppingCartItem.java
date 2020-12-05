@@ -21,6 +21,7 @@ public class ShoppingCartItem {
 
     public ShoppingCartItem(Product product) {
         this.product = product;
+        quantity = 1;
     }
 
     public Product getProduct() {

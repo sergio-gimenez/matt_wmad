@@ -13,11 +13,7 @@
 </head>
 
 <body>
-    <img src="img/cart.gif">
-    <%
-        Category category = (Category) request.getSession().getAttribute("lastCategory");
-    %>
-    
+    <img src="img/cart.gif">    
     <%    
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("cart");
         if (cart != null) {            
@@ -31,6 +27,10 @@
         }
     %>     
 
+    <a href="viewcart.do">
+        View cart
+    </a> 
+    
     <table width="50%" border="1" bordercolordark="#000000" bordercolorlight="#FFFFFF" cellpadding="3" cellspacing="0">
 
         <tr> <font size="2" face="Verdana"> 
@@ -75,11 +75,6 @@
         <% }%>
 
         </font> </tr>
-
-</table>
-
-
-
-           
+</table>         
 
 </body>

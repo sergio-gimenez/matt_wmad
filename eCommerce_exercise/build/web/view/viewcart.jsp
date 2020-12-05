@@ -12,24 +12,18 @@
     <title>eCommerce Sample</title>
 </head>
 
-<body>
-    <img src="img/cart.gif">    
+<body>  
     <%    
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("cart");
-        if (cart != null) {            
-    %>
-            <%=cart.getNumberOfItems() + "items"%>
-    <%
-        } else {
-    %>
-            0 items
-    <%
-        }
     %>     
-
-    <a href="viewcart.do">
-        View cart
-    </a> 
+    
+    
+    <a href="clearcart.do">Clear cart</a><br>
+    
+    <%Category last_category = (Category) request.getSession().getAttribute("last_category");%>
+    <a href="category.do?categoryid=<%=last_category.getId()%>">Continue Shopping</a><br>
+    
+    <a href="checkout.do?amount=<%=cart.getTotal()%>">Proceed to payment</a><br>
     
     <table width="50%" border="1" bordercolordark="#000000" bordercolorlight="#FFFFFF" cellpadding="3" cellspacing="0">
 
@@ -38,14 +32,15 @@
         <th> Description </th>
         <th> Price </th>
         <th> Photo </th>
-        <th> Action </th>
+        <th> Quantity </th>
     </tr>
 
 
     <%
-        List<Product> products = (List<Product>) request.getAttribute("products");
+        List<ShoppingCartItem> items = (List<ShoppingCartItem>) cart.getItems();
 
-        for (Product product : products) {
+        for (ShoppingCartItem item : items) {
+            Product product = item.getProduct();
     %>
 
     <tr> 
@@ -65,16 +60,19 @@
             </a>
         </td>
 
-        <td width="14%" valign="center" align="middle"> 
-
-            <a href="neworder.do?productid=<%=product.getId()%>">
-                Add to cart
-            </a>            
+        <td width="14%" valign="center" align="middle">
+            <form action="updatecart.do">
+                <input type="text" name="updated_quantity" id="updated_quantity" value="<%=item.getQuantity()%>">
+                <input type="hidden" name="updated_product_id" id="updated_product_id" value="<%=item.getProduct().getId()%>">
+                <input type="submit"  value="update">
+            </form>
+                Current quantity: <%=item.getQuantity()%>
         </td>
-
         <% }%>
+        </font> 
+    </tr>
+</table>
 
-        </font> </tr>
-</table>         
+Total price: <%=cart.getTotal()%>
 
 </body>
