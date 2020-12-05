@@ -13,11 +13,7 @@
 </head>
 
 <body>
-    <img src="img/cart.gif">
-    <%
-        Category category = (Category) request.getSession().getAttribute("lastCategory");
-    %>
-    
+    <img src="img/cart.gif">    
     <%    
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("cart");
         if (cart != null) {            

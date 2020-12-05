@@ -23,5 +23,4 @@ public class clearcartAction extends Action {
 
         ViewManager.nextView(req, resp, "/view/viewcart.jsp");
     }
-
 }

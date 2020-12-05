@@ -17,7 +17,14 @@
         ShoppingCart cart = (ShoppingCart) request.getSession().getAttribute("cart");
     %>     
     
-    <a href="clearcart.do">Clear cart</a>
+    
+    <a href="clearcart.do">Clear cart</a><br>
+    
+    <%Category last_category = (Category) request.getSession().getAttribute("last_category");%>
+    <a href="category.do?categoryid=<%=last_category.getId()%>">Continue Shopping</a><br>
+    
+    
+    
     
     <table width="50%" border="1" bordercolordark="#000000" bordercolorlight="#FFFFFF" cellpadding="3" cellspacing="0">
 
