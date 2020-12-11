@@ -61,18 +61,30 @@ public class ControllerServlet extends HttpServlet {
 
         } else if (serv_path.equals("/refresh.do")) {
             UserAccess userAccess = (UserAccess) session.getAttribute("useraccess");
-            if(userAccess != null){
+            if (userAccess != null) {
                 return result_ok;
             }
-                
-            return "/error-not-loggedin.html";            
-            
+            return "/error-not-loggedin.html";
+
         } else if (serv_path.equals("/logout.do")) {
             //... TODO ???
             return "/goodbye.html";
+
+        } else if (serv_path.equals("/delete.do")) {
+            UserAccess userAccess = (UserAccess) session.getAttribute("useraccess");
+
+            Integer indexOfMsgToDelete = Integer.parseInt(request.getParameter("index"));
+            String msgOwner = userAccess.getAllMessages().get(indexOfMsgToDelete).getOwner();
+            if (userAccess.getUser().equals(msgOwner)) {
+                userAccess.delete(indexOfMsgToDelete);
+            }
+
+            return result_ok;
+
         } else {
             return "/error-bad-action.html";
         }
+
     }
 
     public RemoteLogin getRemoteLogin() {
