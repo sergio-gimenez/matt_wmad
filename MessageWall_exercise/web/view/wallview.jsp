@@ -11,8 +11,7 @@
 </head>
 
 <%
-    
-
+    UserAccess userAccess = (UserAccess) session.getAttribute("useraccess");
 %>
 
 <script>

@@ -35,10 +35,20 @@ public class ControllerServlet extends HttpServlet {
         String serv_path = request.getServletPath();
         HttpSession session = request.getSession();
         String result_ok = "/wallview";
+        //String result_ok = "/view/wallview.jsp";
+        
 
         if (serv_path.equals("/login.do")) {
-            //...
-            return "/error-no-user_access.html";
+            String user = request.getParameter("user");
+            String password = request.getParameter("password");
+            
+            UserAccess userAccess = this.getRemoteLogin().connect(user, password);
+            
+            if(userAccess != null){
+                session.setAttribute("useraccess", userAccess);
+                return result_ok;
+            }          
+            return "/error-no-user_access.html";                                                         
         } 
         
         else if (serv_path.equals("/put.do")) {

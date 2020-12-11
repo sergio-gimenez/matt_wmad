@@ -54,7 +54,7 @@ public class MessageWall_and_RemoteLogin_Impl implements RemoteLogin, MessageWal
             return messages.get(messages.size() - 1);
         } catch (Exception e) {
             System.out.println("List is empty");
-            return null;
+            return new Message_Impl("no one", "Not messages yet");
         }
     }
 
