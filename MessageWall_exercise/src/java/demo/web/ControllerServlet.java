@@ -34,8 +34,8 @@ public class ControllerServlet extends HttpServlet {
 
         String serv_path = request.getServletPath();
         HttpSession session = request.getSession();
-        String result_ok = "/wallview";
-        //String result_ok = "/view/wallview.jsp";
+        //String result_ok = "/wallview";
+        String result_ok = "/view/wallview.jsp";
 
         if (serv_path.equals("/login.do")) {
             String user = request.getParameter("user");
@@ -65,8 +65,7 @@ public class ControllerServlet extends HttpServlet {
                 return result_ok;
             }
                 
-            return "/error-not-loggedin.html";
-            
+            return "/error-not-loggedin.html";            
             
         } else if (serv_path.equals("/logout.do")) {
             //... TODO ???
