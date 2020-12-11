@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="demo.spec.Message"%>
 <%@ page import="demo.spec.UserAccess"%>
 <%@ page import="java.util.List" %>
@@ -11,23 +12,21 @@
 </head>
 
 <%
-    
-
+    UserAccess userAccess = (UserAccess) session.getAttribute("useraccess");
 %>
 
 <script>
-    
-    
+     
     
     
 </script>
 
 <body>
     
-    <h3>user: <em><%=%></em>
+    <h3>user: <em><%=userAccess.getUser()%></em>
         <a href=logout.do>[Close session]</a></h3>
 
-    <h2> <%=%> Messages shown:</h2>
+    <h2> <%=userAccess.getNumber()%> Messages shown:</h2>
 
     <table width="50%" border="1" bordercolordark="#000000" bordercolorlight="#FFFFFF" cellpadding="3" cellspacing="0">
 
@@ -44,26 +43,25 @@
         </td>
 
         <%
-
-            
-
+            List<Message> messages = userAccess.getAllMessages();
+            for (int i = 0; i < messages.size(); i++){                        
         %>
 
         <tr> <font size="2" face="Verdana">
 
         <td width="14%" valign="center" align="middle">
-            <%=%>
+            <%=messages.get(i).getOwner()%>
         </td>
 
         <td width="14%" valign="center" align="middle">
-            <%=%>
+            <%=messages.get(i).getContent()%>
         </td>
 
         <td width="14%" valign="center" align="middle">
             <form action="delete.do" method="post">
                 <input type="hidden"
                        name="index"
-                       value="<%=%>">
+                       value="<%=i%>">
                 <input type="submit"
                        name="delete"
                        value="delete">
@@ -73,7 +71,7 @@
         </font> 
     </tr>
 
-    <% %>
+    <%}%>
 
 </table>
 

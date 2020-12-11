@@ -26,7 +26,7 @@
     <%
         }
     %>     
-
+    
     <a href="viewcart.do">
         View cart
     </a> 
