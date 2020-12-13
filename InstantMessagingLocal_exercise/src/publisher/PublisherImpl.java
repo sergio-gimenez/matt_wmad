@@ -51,5 +51,4 @@ public class PublisherImpl implements Publisher {
     public void publish(Message message) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 }
