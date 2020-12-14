@@ -120,21 +120,21 @@ public class SwingClient {
 
             String currentTopicName = argument_TextField.getText();
             ArrayList<Topic> topics = (ArrayList) topicManager.topics();
-
+            argument_TextField.setText("");
+            boolean topicFound = false;
             for (Topic topic : topics) {
-
-                boolean topicFound = false;
-                if (currentTopicName.equals(topic.name)) {
+                
+                if (topic.name.equals(currentTopicName)) {
                     publisherTopic = topic;
                     topicFound = true;
                     break;
                 }
-                if (!topicFound) {
-                    // TODO If topic hasn't been found, create new one?
-                    publisherTopic = new Topic(currentTopicName);
-                }
             }
-            topicManager.addPublisherToTopic(publisherTopic);
+                if (!topicFound) {
+                    // If topic hasn't been found, create new one
+                    publisherTopic = new Topic(currentTopicName);
+                }            
+            publisher = topicManager.addPublisherToTopic(publisherTopic);
             publisher_TextArea.setText(publisherTopic.name);
         }
     }
