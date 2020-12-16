@@ -102,6 +102,9 @@ public class SwingClient {
         frame.setVisible(true);
     }
 
+    
+    // TODO Figure out where to write stuff in the TextBox (VieW???)
+    
     class showTopicsHandler implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -136,6 +139,7 @@ public class SwingClient {
             }
             publisher = topicManager.addPublisherToTopic(publisherTopic);
             publisher_TextArea.setText(publisherTopic.name);
+            messages_TextArea.append("Added as publisher of topic: " + publisherTopic.name);
         }
     }
 
@@ -156,6 +160,7 @@ public class SwingClient {
                     if (subscription_check.result == Result.OKAY) {
                         my_subscriptions.put(topic, subscriber);
                         my_subscriptions_TextArea.append(topic.name + "\n");
+                        messages_TextArea.append("Added as subscriber of topic: " + topic.name);
                     }
                 }
             }
@@ -174,7 +179,6 @@ public class SwingClient {
                     Subscriber subscriber = new SubscriberImpl(SwingClient.this); // TODO this sintax??
                     Subscription_check subscription_check = topicManager.unsubscribe(topic, subscriber);
                     if (subscription_check.result == Result.OKAY) {
-                        // TODO refresh textboxes?
                         my_subscriptions.remove(topic);
                     }
                 }
@@ -188,6 +192,7 @@ public class SwingClient {
 
             String msg = argument_TextField.getText();
             argument_TextField.setText("");
+            
             if (publisher != null) {
                 publisher.publish(new Message(publisherTopic, msg));
             }

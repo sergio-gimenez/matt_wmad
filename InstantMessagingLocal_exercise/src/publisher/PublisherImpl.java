@@ -32,7 +32,7 @@ public class PublisherImpl implements Publisher {
     @Override
     public void attachSubscriber(Subscriber subscriber) {
         // TODO implement trycatch here
-        if (subscriberSet.contains(subscriber)) {
+        if (!subscriberSet.contains(subscriber)) {
             this.subscriberSet.add(subscriber);
         }
     }
@@ -49,6 +49,9 @@ public class PublisherImpl implements Publisher {
 
     @Override
     public void publish(Message message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // Post each message from each subsciber to me (publisher)
+        for (Subscriber subscriber : subscriberSet){
+            subscriber.onMessage(message);
+        }
     }
 }

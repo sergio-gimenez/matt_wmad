@@ -44,5 +44,6 @@ public class SubscriberImpl implements Subscriber {
 
   public void onMessage(Message message) {
     messages_TextArea.append(message.topic.name + ": " + message.content + "\n");
+    System.out.println(message);
   }
 }
