@@ -101,7 +101,7 @@ public class SwingClient {
         frame.pack();
         frame.setVisible(true);
     }
-    
+
     // TODO es pot crear aquest mètode?
     private void refrshTopicsSubscribersBoxes() {
 
@@ -113,7 +113,7 @@ public class SwingClient {
         }
 
         my_subscriptions_TextArea.setText("");
-        
+
         for (Topic topic : my_subscriptions.keySet()) {
             my_subscriptions_TextArea.append(topic.name + "\n");
         }
@@ -141,11 +141,17 @@ public class SwingClient {
             ArrayList<Topic> topics = (ArrayList) topicManager.topics();
             argument_TextField.setText("");
             boolean topicFound = false;
+
+            if (publisherTopic != null) {
+                messages_TextArea.append("Removed as publisher of topic: " + publisherTopic.name + "\n");
+            }
+
             for (Topic topic : topics) {
 
                 if (topic.name.equals(currentTopicName)) {
                     publisherTopic = topic;
                     topicFound = true;
+
                     break;
                 }
             }
@@ -202,7 +208,7 @@ public class SwingClient {
                         my_subscriptions.remove(topic);
                         // TODO Figure out how to remove subscription from textbox
                         System.out.println(my_subscriptions.size());
-                        messages_TextArea.append("Unsuscribed from topic: "+ topic.name +"\n");
+                        messages_TextArea.append("Unsuscribed from topic: " + topic.name + "\n");
                         refrshTopicsSubscribersBoxes();
                     }
                 }
