@@ -102,9 +102,7 @@ public class SwingClient {
         frame.setVisible(true);
     }
 
-    
     // TODO Figure out where to write stuff in the TextBox (VieW???)
-    
     class showTopicsHandler implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -147,7 +145,7 @@ public class SwingClient {
 
         public void actionPerformed(ActionEvent e) {
             String topicToSubscribe = argument_TextField.getText();
-            ArrayList<Topic> topics = (ArrayList) topicManager.topics();            
+            ArrayList<Topic> topics = (ArrayList) topicManager.topics();
             argument_TextField.setText("");
 
             for (Topic topic : topics) {
@@ -172,14 +170,20 @@ public class SwingClient {
         public void actionPerformed(ActionEvent e) {
             String topicToUnsubscribe = argument_TextField.getText();
             ArrayList<Topic> topics = (ArrayList) topicManager.topics();
+            argument_TextField.setText("");
+            
             for (Topic topic : topics) {
 
                 if (topic.name.equals(topicToUnsubscribe)) { // TODO Handle exception when I can't find an existing topic?   
 
-                    Subscriber subscriber = new SubscriberImpl(SwingClient.this); // TODO this sintax??
+                    Subscriber subscriber = new SubscriberImpl(SwingClient.this); 
                     Subscription_check subscription_check = topicManager.unsubscribe(topic, subscriber);
+                    
                     if (subscription_check.result == Result.OKAY) {
+                        System.out.println(my_subscriptions.size());
                         my_subscriptions.remove(topic);
+                        // TODO Figure out how to remove subscription from textbox
+                        System.out.println(my_subscriptions.size());
                     }
                 }
             }
@@ -192,7 +196,7 @@ public class SwingClient {
 
             String msg = argument_TextField.getText();
             argument_TextField.setText("");
-            
+
             if (publisher != null) {
                 publisher.publish(new Message(publisherTopic, msg));
             }
