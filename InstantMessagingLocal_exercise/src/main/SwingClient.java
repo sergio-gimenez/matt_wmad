@@ -123,17 +123,17 @@ public class SwingClient {
             argument_TextField.setText("");
             boolean topicFound = false;
             for (Topic topic : topics) {
-                
+
                 if (topic.name.equals(currentTopicName)) {
                     publisherTopic = topic;
                     topicFound = true;
                     break;
                 }
             }
-                if (!topicFound) {
-                    // If topic hasn't been found, create new one
-                    publisherTopic = new Topic(currentTopicName);
-                }            
+            if (!topicFound) {
+                // If topic hasn't been found, create new one
+                publisherTopic = new Topic(currentTopicName);
+            }
             publisher = topicManager.addPublisherToTopic(publisherTopic);
             publisher_TextArea.setText(publisherTopic.name);
         }
@@ -143,16 +143,19 @@ public class SwingClient {
 
         public void actionPerformed(ActionEvent e) {
             String topicToSubscribe = argument_TextField.getText();
-            ArrayList<Topic> topics = (ArrayList) topicManager.topics();
+            ArrayList<Topic> topics = (ArrayList) topicManager.topics();            
+            argument_TextField.setText("");
+
             for (Topic topic : topics) {
 
-                if (topic.name.equals(topicToSubscribe)) { // TODO Handle exception when I can't find an existing topic?   
+                if (topic.name.equals(topicToSubscribe) && !my_subscriptions.containsKey(topic)) {
 
                     Subscriber subscriber = new SubscriberImpl(SwingClient.this); // TODO this sintax??
                     Subscription_check subscription_check = topicManager.subscribe(topic, subscriber);
+
                     if (subscription_check.result == Result.OKAY) {
-                        // TODO refresh textboxes?
                         my_subscriptions.put(topic, subscriber);
+                        my_subscriptions_TextArea.append(topic.name + "\n");
                     }
                 }
             }
