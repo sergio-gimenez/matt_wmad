@@ -101,6 +101,24 @@ public class SwingClient {
         frame.pack();
         frame.setVisible(true);
     }
+    
+    // TODO es pot crear aquest mètode?
+    private void refrshTopicsSubscribersBoxes() {
+
+        topic_list_TextArea.setText("");
+        ArrayList<Topic> topics = (ArrayList) topicManager.topics();
+
+        for (Topic topic : topics) {
+            topic_list_TextArea.append(topic.name + "\n");
+        }
+
+        my_subscriptions_TextArea.setText("");
+        
+        for (Topic topic : my_subscriptions.keySet()) {
+            my_subscriptions_TextArea.append(topic.name + "\n");
+        }
+
+    }
 
     // TODO Figure out where to write stuff in the TextBox (VieW???)
     class showTopicsHandler implements ActionListener {
@@ -137,7 +155,7 @@ public class SwingClient {
             }
             publisher = topicManager.addPublisherToTopic(publisherTopic);
             publisher_TextArea.setText(publisherTopic.name);
-            messages_TextArea.append("Added as publisher of topic: " + publisherTopic.name);
+            messages_TextArea.append("Added as publisher of topic: " + publisherTopic.name + "\n");
         }
     }
 
@@ -152,13 +170,13 @@ public class SwingClient {
 
                 if (topic.name.equals(topicToSubscribe) && !my_subscriptions.containsKey(topic)) {
 
-                    Subscriber subscriber = new SubscriberImpl(SwingClient.this); // TODO this sintax??
+                    Subscriber subscriber = new SubscriberImpl(SwingClient.this);
                     Subscription_check subscription_check = topicManager.subscribe(topic, subscriber);
 
                     if (subscription_check.result == Result.OKAY) {
                         my_subscriptions.put(topic, subscriber);
                         my_subscriptions_TextArea.append(topic.name + "\n");
-                        messages_TextArea.append("Added as subscriber of topic: " + topic.name);
+                        messages_TextArea.append("Added as subscriber of topic: " + topic.name + "\n");
                     }
                 }
             }
@@ -171,19 +189,21 @@ public class SwingClient {
             String topicToUnsubscribe = argument_TextField.getText();
             ArrayList<Topic> topics = (ArrayList) topicManager.topics();
             argument_TextField.setText("");
-            
+
             for (Topic topic : topics) {
 
                 if (topic.name.equals(topicToUnsubscribe)) { // TODO Handle exception when I can't find an existing topic?   
 
-                    Subscriber subscriber = new SubscriberImpl(SwingClient.this); 
+                    Subscriber subscriber = new SubscriberImpl(SwingClient.this);
                     Subscription_check subscription_check = topicManager.unsubscribe(topic, subscriber);
-                    
+
                     if (subscription_check.result == Result.OKAY) {
                         System.out.println(my_subscriptions.size());
                         my_subscriptions.remove(topic);
                         // TODO Figure out how to remove subscription from textbox
                         System.out.println(my_subscriptions.size());
+                        messages_TextArea.append("Unsuscribed from topic: "+ topic.name +"\n");
+                        refrshTopicsSubscribersBoxes();
                     }
                 }
             }
