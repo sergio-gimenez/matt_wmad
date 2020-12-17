@@ -103,7 +103,7 @@ public class SwingClient {
     }
 
     // TODO es pot crear aquest mètode?
-    private void refrshTopicsSubscribersBoxes() {
+    private void refreshTopicsSubscriptionsBoxes() {
 
         topic_list_TextArea.setText("");
         ArrayList<Topic> topics = (ArrayList) topicManager.topics();
@@ -144,14 +144,16 @@ public class SwingClient {
 
             if (publisherTopic != null) {
                 messages_TextArea.append("Removed as publisher of topic: " + publisherTopic.name + "\n");
+                topicManager.removePublisherFromTopic(publisherTopic);                
             }
 
             for (Topic topic : topics) {
 
-                if (topic.name.equals(currentTopicName)) {
+                if (topic.name.equals(currentTopicName)) {                    
+                    topicManager.removePublisherFromTopic(topic);                    
+                    
                     publisherTopic = topic;
-                    topicFound = true;
-
+                    topicFound = true;                    
                     break;
                 }
             }
@@ -173,7 +175,7 @@ public class SwingClient {
             argument_TextField.setText("");
 
             for (Topic topic : topics) {
-
+                // Check if already subscribed
                 if (topic.name.equals(topicToSubscribe) && !my_subscriptions.containsKey(topic)) {
 
                     Subscriber subscriber = new SubscriberImpl(SwingClient.this);
@@ -204,12 +206,9 @@ public class SwingClient {
                     Subscription_check subscription_check = topicManager.unsubscribe(topic, subscriber);
 
                     if (subscription_check.result == Result.OKAY) {
-                        System.out.println(my_subscriptions.size());
                         my_subscriptions.remove(topic);
-                        // TODO Figure out how to remove subscription from textbox
-                        System.out.println(my_subscriptions.size());
                         messages_TextArea.append("Unsuscribed from topic: " + topic.name + "\n");
-                        refrshTopicsSubscribersBoxes();
+                        refreshTopicsSubscriptionsBoxes();
                     }
                 }
             }

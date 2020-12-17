@@ -22,21 +22,33 @@ public class TopicManagerImpl implements TopicManager {
 
     @Override
     public Publisher addPublisherToTopic(Topic topic) {
-        // TODO implement necessary error checking here
-        PublisherImpl publisher = new PublisherImpl(topic);
-        topicMap.put(topic, publisher);
+          
+        Publisher publisher;
+        // Is topic already in topicMap?
+        // - no -> Create publisher and add <topic, publisher> in topicMap
+        // - yes -> TODO Not sure what to do here. I thought one topic per publisher
+        if(!isTopic(topic).isOpen){ 
+            publisher = new PublisherImpl(topic);
+            topicMap.put(topic, publisher);
+        }
+        else{
+            publisher = topicMap.get(topic);
+            //publisher.incPublishers();??????????????                        
+        }               
         return publisher;
     }
 
     @Override
     public void removePublisherFromTopic(Topic topic) {
-        // TODO why here is Publisher and not PublisherImpl?
+
         Publisher publisher = topicMap.get(topic);
-
-        // TODO what if numPublisher == 0?
-        publisher.decPublishers();
-
-        topicMap.remove(topic);
+        if (publisher != null) {
+            // If no publisher(s) are left in topic, then detach subscribers, remove topic
+            if (publisher.decPublishers() == 0) {
+                publisher.detachAllSubscribers();
+                topicMap.remove(topic);
+            }
+        }
     }
 
     @Override
@@ -59,7 +71,7 @@ public class TopicManagerImpl implements TopicManager {
     public Subscription_check subscribe(Topic topic, Subscriber subscriber) {
         if (topicMap.containsKey(topic)) {
             Publisher publisher = topicMap.get(topic);
-            publisher.attachSubscriber(subscriber);            
+            publisher.attachSubscriber(subscriber);
             return new Subscription_check(topic, Result.OKAY);
         }
         // Return the topic in order to let to know that the topic was not ok.
@@ -68,12 +80,11 @@ public class TopicManagerImpl implements TopicManager {
 
     @Override
     public Subscription_check unsubscribe(Topic topic, Subscriber subscriber) {
-        if (topicMap.containsKey(topic)){
+        if (topicMap.containsKey(topic)) {
             Publisher publisher = topicMap.get(topic);
             publisher.detachSubscriber(subscriber);
-            return new Subscription_check (topic, Result.OKAY);
+            return new Subscription_check(topic, Result.OKAY);
         }
-            return new Subscription_check (topic, Result.NO_TOPIC);
+        return new Subscription_check(topic, Result.NO_TOPIC);
     }
-
 }
