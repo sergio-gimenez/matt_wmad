@@ -13,7 +13,9 @@ import subscriber.Subscriber;
 import util.Subscription_check.Result;
 
 public class TopicManagerImpl implements TopicManager {
-
+    
+    // TODO Can one topic have more publishers?
+    
     private Map<Topic, Publisher> topicMap;
 
     public TopicManagerImpl() {

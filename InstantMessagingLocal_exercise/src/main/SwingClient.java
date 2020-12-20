@@ -120,7 +120,7 @@ public class SwingClient {
 
     }
 
-    // TODO Figure out where to write stuff in the TextBox (VieW???)
+    
     class showTopicsHandler implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
@@ -176,6 +176,7 @@ public class SwingClient {
 
             for (Topic topic : topics) {
                 // Check if already subscribed
+                // TODO Implement 
                 if (topic.name.equals(topicToSubscribe) && !my_subscriptions.containsKey(topic)) {
 
                     Subscriber subscriber = new SubscriberImpl(SwingClient.this);
@@ -257,7 +258,7 @@ public class SwingClient {
         }
 
         public void windowClosing(WindowEvent e) {
-
+            // TODO Implement this
             //...
             System.out.println("one user closed");
         }
