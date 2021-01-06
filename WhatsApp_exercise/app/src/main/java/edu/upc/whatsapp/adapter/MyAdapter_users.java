@@ -38,8 +38,17 @@ public class MyAdapter_users extends BaseAdapter {
       if (convertView == null) {
         convertView = LayoutInflater.from(context).inflate(R.layout.row_twotextviews, parent, false);
       }
+        UserInfo userInfo = (UserInfo) getItem(position);
 
-      //...
+        // Get the TextView for user name and surname
+        TextView textViewName = (TextView)
+                convertView.findViewById(R.id.row_twotextviews_name);
+        TextView textViewSurname = (TextView)
+                convertView.findViewById(R.id.row_twotextviews_name);
+
+        // Set the text for name and surname
+        textViewName.setText(userInfo.getName());
+        textViewSurname.setText(userInfo.getSurname());
 
       return convertView;
     }
