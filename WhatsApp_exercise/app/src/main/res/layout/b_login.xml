@@ -1,24 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/login"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="@drawable/background_picture">
+    android:id="@+id/login"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_picture"
+    android:gravity="center">
 
+    <EditText
+        android:id="@+id/editloginUserText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textPersonName" />
 
-
-
+    <EditText
+        android:id="@+id/editloginPasswordText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_below="@id/editloginUserText"
+        android:layout_marginStart="10dp"
+        android:hint="Password"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/editloginButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/editloginPasswordText"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
         android:layout_marginTop="20dip"
         android:text="LOGIN"
-        android:textColor="@color/orange"/>
+        android:textColor="@color/orange" />
 
 </RelativeLayout>
 
