@@ -18,6 +18,7 @@
         android:debuggable="true"
         android:hardwareAccelerated="true"
         android:label="@string/app_name"
+        android:testOnly="true"
         android:theme="@android:style/Theme.Light" >
         <activity
             android:name="edu.upc.whatsapp.a_WelcomeActivity"
