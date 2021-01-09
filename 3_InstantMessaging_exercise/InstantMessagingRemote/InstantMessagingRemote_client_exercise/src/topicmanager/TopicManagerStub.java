@@ -8,6 +8,7 @@ import java.util.List;
 import publisher.Publisher;
 import publisher.PublisherStub;
 import subscriber.Subscriber;
+import util.Subscription_close;
 import webSocketService.WebSocketClient;
 
 public class TopicManagerStub implements TopicManager {
